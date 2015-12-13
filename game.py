@@ -1,28 +1,48 @@
+import meet
+
 import random
-from meet import *
 cells=[]
-#cell1={"x":-20, "y":20, "radius":30, "dy":0.0032, "dx":0.003}
-#cell2={"x":50, "y":-100, "radius":18, "dy":0.0002, "dx":-0.009}
-#cell3={"x":30, "y":40, "radius":50, "dy":-0.01, "dx":0.004}
-#z1=create_cell(cell1)
-#cells.append(z1)
-#z2=create_cell(cell2)
-#cells.append(z2)
-#z3=create_cell(cell3)
-#cells.append(z3)
-h=get_screen_height()
-w=get_screen_width()
-for i in range(200):
-	cell={"x":get_random_x(), "y":get_random_y(), "radius":15, "dy":random.random(), "dx":random.random()}
-	z=create_cell(cell)
-	cells.append(z)
-for h in cells:
-	if (x>w,x<w*-1):
-		"dx"=="dx"*-1
-	if (y>h,y<h*-1):
-		"dy"=="dy"*-1
+cells_nums=0
+colors=['yellow','blue','red','green','orange','pink','purple']
+while cells_nums<30:
+	balls={'radius':random.randint(0,40),'x':random.randint(-100,150),'y':random.randint(-100,150),'dx':random.randint(-10,10),'dy':random.randint(-10,10)}
+	cells_nums+=1
+	circle=meet.create_cell(balls)
+	cells.append(circle)
+
+def check_x_border(cells):
+	width=meet.get_screen_width()
+	for cell in cells:
+		if cell.xcor()>width or cell.xcor()<-width:
+			h1=cell.get_dx()
+			cell.set_dx(-h1)
+def check_y_border(cells):
+	height=meet.get_screen_height() 
+	for cell in cells:
+		if cell.ycor()>height or cell.ycor()<-height:
+			h2=cell.get_dy()
+			cell.set_dy(-h2)
 		
 while True:
-	move_cells(cells)
+	def move_cell(cell):
+		'x' = cell.xcor()
+		'dx' = cell.get_dx()
+		'y' = cell.ycor()
+		'dy' = cell.get_dy()
+		'r' = cell.get_radius()
+		cell.goto(x+dx,y+dy-r)
+		cell.begin_fill()
+		cell.pd()
+		cell.circle(cell.get_radius())
+		cell.penup()
+		cell.end_fill()
+		x = cell.xcor()
+		dx = cell.get_dx()
+		y = cell.ycor()
+		dy = cell.get_dy()
+		r = cell.get_radius()
+		cell.goto(x+dx,y+dy+r)
+
+	
 
 
