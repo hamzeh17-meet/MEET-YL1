@@ -1,32 +1,30 @@
+from meet import *
 import meet
 
-import random
 cells=[]
-cells_nums=0
-colors=['yellow','blue','red','green','orange','pink','purple']
-while cells_nums<30:
-	balls={'radius':random.randint(0,40),'x':random.randint(-100,150),'y':random.randint(-100,150),'dx':random.randint(-10,10),'dy':random.randint(-10,10)}
-	cells_nums+=1
-	circle=meet.create_cell(balls)
-	cells.append(circle)
+colors=['red','green','yellow','black','pink','orange']
+for i in range(0,20):
+	cell= {'x':meet.get_random_x(), 'y':meet.get_random_y(), 'radius':random.randint(5,50), 'dx':random.uniform(0.1,2), 'dy':random.uniform(0.1,2),'color':random.choice(colors)}
+	a=create_cell(cell)
+	cells.append(a)
+user_cell={'x': meet.get_x_mouse(),'y': meet.get_y_mouse(),'radius': 20,'dx': 0,'dy': 0,'color':'blue'}
+user=create_cell(user_cell)
+users=[user]
 
-def check_x_border(cells):
-	width=meet.get_screen_width()
+def borders():
+	w1=meet.get_screen_width()
+	w2=-meet.get_screen_width()
+	h1=meet.get_screen_height()
+	h2=-meet.get_screen_height()
 	for cell in cells:
-		if cell.xcor()>width or cell.xcor()<-width:
-			h1=cell.get_dx()
-			cell.set_dx(-h1)
-def check_y_border(cells):
-	height=meet.get_screen_height() 
-	for cell in cells:
-		if cell.ycor()>height or cell.ycor()<-height:
-			h2=cell.get_dy()
-			cell.set_dy(-h2)
-			meet.mainloop()
-
-
-	
-
-
-		#meet.mainloop()
-
+		if cell.ycor()+cell.get_radius()>=h1 or cell.ycor()<=h2:
+			cell.set_dy(-cell.get_dy())
+		if cell.xcor()+cell.get_radius()>=w1 or cell.xcor()<=w2:
+			cell.set_dx(-cell.get_dx())
+while True:
+	meet.move_cells(cells)
+	meet.move_cells(users)
+	dx,dy=meet.get_user_direction(user)
+	user.set_dx(dx)
+	user.set_dy(dy)
+	borders()
