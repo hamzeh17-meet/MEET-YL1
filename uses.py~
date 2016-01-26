@@ -1,0 +1,23 @@
+from AnimalFile import *
+import random
+#dog=Animal("woof","alex",17)
+#cat=Animal("meow","max",7)
+animals=[]
+sounds=["woof","meow","ssss","rawr"]
+names=["alex","max","peter","jack"]
+ages=[17,14,5,9]
+x=0
+while x<=100:
+	y=Animal(random.choice(sounds),random.choice(names),random.choice(ages))
+	x+=1
+	animals.append(y)
+	for i in range(0,30):
+		animals [i.eat("pizza")
+	for f in range(0,50):
+		animals [f].sleep("eating")
+#print(dog.sound)
+#dog.eat("pizza")
+#cat.eat("bamba")
+#dog.sleep("bones")
+#cat.sleep("fish")
+
